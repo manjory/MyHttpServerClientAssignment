@@ -10,6 +10,9 @@ public class ThreadPool {
     public void execute(Runnable task) {
         executor.execute(task);
     }
+    public void dispatchToWorker(Runnable task) {
+        executor.submit(task);
+    }
 
     public void shutdown() {
         executor.shutdown();

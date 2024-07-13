@@ -1,22 +1,27 @@
-import java.net.*;
-import java.io.*;
-import java.sql.SQLOutput;
+import com.sun.net.httpserver.Request;
 
-public class MyHTTPClient {
-    public static void main(String[] args){
-        try{
-            Socket sock = new Socket("127.0.0.1", 2024);
-            InputStream in =sock.getInputStream();
+import java.io.IOException;
+import java.net.Socket;
+import java.util.concurrent.BlockingQueue;
 
-            BufferedReader bin= new BufferedReader(new InputStreamReader(in));
-            String line;
-            while ((line=bin.readLine())!=null){
-                System.out.println(line);
-                sock.close();
-            }
-        }
-        catch (IOException ioe){
-            System.err.println(ioe);
-        }
+public class ClientHandler {
+    private final Socket clientSocket;
+    private final BlockingQueue<Request> requestQueue;
+
+    public ClientHandler(Socket clientSocket) {
+        this.clientSocket = clientSocket;
+        this.requestQueue = requestQueue;
+    }
+
+    public void handleClient() throws IOException {
+        // Parse request from clientSocket
+        Request request = parseRequest(clientSocket);
+        // Add request to queue
+        requestQueue.put(request);
+    }
+
+    private Request parseRequest(Socket socket) {
+        // Implement request parsing logic
+        return null; // Placeholder
     }
 }
